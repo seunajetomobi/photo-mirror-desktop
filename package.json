@@ -43,7 +43,8 @@
       "icon": "assets/icon.png",
       "target": [
         "nsis",
-        "portable"
+        "portable",
+        "appx"
       ]
     },
     "nsis": {
@@ -86,6 +87,18 @@
     },
     "portable": {
       "artifactName": "Photo-Mirror-Portable-${version}.${ext}"
+    },
+    "appx": {
+      "identityName": "SEUNAJETOMOBI.PhotoMirror",
+      "publisher": "CN=1DFB5915-9E9E-4CFC-90C6-B41C5A2C4537",
+      "publisherDisplayName": "SEUN AJETOMOBI",
+      "applicationId": "PhotoMirror",
+      "displayName": "Photo Mirror",
+      "backgroundColor": "#161b22",
+      "languages": [
+        "en-US"
+      ],
+      "artifactName": "Photo-Mirror-Store-${version}.${ext}"
     }
   },
   "homepage": "https://phone.helekt.net/"

@@ -29,6 +29,7 @@ jobs:
           name: photo-mirror-${{ matrix.os }}
           path: |
             dist-desktop/*.exe
+            dist-desktop/*.appx
             dist-desktop/*.dmg
             dist-desktop/*.zip
             dist-desktop/*.AppImage
@@ -38,6 +39,7 @@ jobs:
         with:
           files: |
             dist-desktop/*.exe
+            dist-desktop/*.appx
             dist-desktop/*.dmg
             dist-desktop/*.zip
             dist-desktop/*.AppImage

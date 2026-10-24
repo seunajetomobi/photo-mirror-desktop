@@ -391,6 +391,7 @@ body.pfs #brand,body.pfs #toolbar:not(:hover){opacity:.0;transition:opacity .2s}
 .brand b{color:var(--txt);font-weight:600}.brand a{color:var(--accent);text-decoration:none}.brand a:hover{text-decoration:underline}
 
 #credit{position:fixed;right:14px;bottom:8px;z-index:21;display:flex;flex-direction:column;align-items:flex-end;gap:1px;font-size:11px;line-height:1.3;color:#fff;background:none;border:0;box-shadow:none;padding:0;text-align:right;white-space:nowrap;text-shadow:0 1px 2px #000c,0 0 5px #0008;pointer-events:none}
+#credit.lt{color:#1b1b1b;text-shadow:0 1px 2px #fffa,0 0 5px #fff9}#credit.lt a{color:#1b1b1b}
 #credit a{color:#fff;text-decoration:none;font-weight:600;pointer-events:auto}#credit a:hover{text-decoration:underline}
 @media(max-height:600px){#credit{display:none}}
 </style>
@@ -769,10 +770,13 @@ if(typeof cfg.surface==='number')cfg.surface=(SURF.filter(s=>s.r==='classic')[cf
 if(!surfById[cfg.surface])cfg.surface=SURF[1].id;
 const scaleSz=(sz,k)=>String(sz||'auto').split(',').map(p=>p.replace(/(\d+(?:\.\d+)?)px/g,(m,n)=>(Math.round(n*k*100)/100)+'px')).join(',');
 function paint(el,s,k){el.style.backgroundColor=s.col||'var(--panel2)';el.style.backgroundImage=s.img||'none';el.style.backgroundSize=(!s.sz||s.sz==='cover')?'cover':scaleSz(s.sz,k);}
+/* the credit text has no background, so it switches between white and dark text to stay readable on any pattern */
+function creditTone(){try{const c=document.createElement('canvas');c.width=c.height=1;const x=c.getContext('2d',{willReadFrequently:true});x.fillStyle='#888';x.fillStyle=getComputedStyle(document.body).backgroundColor||'#888';x.fillRect(0,0,1,1);const d=x.getImageData(0,0,1,1).data;const L=(.2126*d[0]+.7152*d[1]+.0722*d[2])/255;const e=$('credit');if(e)e.classList.toggle('lt',L>.6);}catch(e){}}
 function applySurf(preview){
   const s=(preview&&surfById[preview])||surfById[cfg.surface]||SURF[0],b=document.body.style,k=(cfg.patZoom||100)/100;
   if(!s.col){b.backgroundImage='';b.backgroundColor='';b.backgroundSize='';b.backgroundAttachment='';}
   else{b.backgroundColor=s.col;b.backgroundImage=s.img||'none';b.backgroundSize=(!s.sz||s.sz==='cover')?'cover':scaleSz(s.sz,k);b.backgroundAttachment='fixed';}
+  creditTone();
   if(preview)return;
   paint($('surfSw'),s,.4);$('surfLbl').textContent=s.n;$('surfBtn').title='Background pattern: '+s.n;
   document.querySelectorAll('#surfList .st').forEach(t=>t.setAttribute('aria-selected',t.dataset.id===cfg.surface?'true':'false'));
