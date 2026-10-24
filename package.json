@@ -1,0 +1,92 @@
+{
+  "name": "photo-mirror",
+  "productName": "Photo Mirror",
+  "version": "1.0.0",
+  "description": "Send photos and files from your phone straight to your computer.",
+  "author": {
+    "name": "Seun Ajetomobi",
+    "email": "support@helekt.net",
+    "url": "https://phone.helekt.net/"
+  },
+  "license": "GPL-2.0-or-later",
+  "main": "desktop/main.js",
+  "scripts": {
+    "server": "node server/server.js",
+    "start": "electron .",
+    "dist": "electron-builder --publish never",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist:linux": "electron-builder --linux --publish never"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "net.helekt.photomirror",
+    "productName": "Photo Mirror",
+    "copyright": "Copyright © 2026 Seun Ajetomobi",
+    "directories": {
+      "output": "dist-desktop",
+      "buildResources": "assets"
+    },
+    "files": [
+      "desktop/**",
+      "app/**",
+      "server/**",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icon.png",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Photo-Mirror-Setup-${version}.${ext}"
+    },
+    "mac": {
+      "icon": "assets/icon.png",
+      "category": "public.app-category.photography",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Photo-Mirror-${version}-mac-${arch}.${ext}"
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "category": "Graphics",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "Seun Ajetomobi <support@helekt.net>",
+      "artifactName": "Photo-Mirror-${version}-linux-${arch}.${ext}",
+      "synopsis": "Send photos and files from your phone to your computer"
+    },
+    "portable": {
+      "artifactName": "Photo-Mirror-Portable-${version}.${ext}"
+    }
+  },
+  "homepage": "https://phone.helekt.net/"
+}
